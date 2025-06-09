@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: bankbounty-backend
+    env: node
+    region: oregon # Choose your preferred region
+    plan: free # or starter/standard based on your needs
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /api
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true # Render will generate a secure random value
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: GOOGLE_CLIENT_ID
+        sync: false # You'll set this manually
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false # You'll set this manually
+      - key: FRONTEND_URL
+        value: https://your-frontend-domain.com
+
+databases:
+  - name: bankbounty-postgres
+    databaseName: bankbounty
+    user: bankbounty_user
+    region: oregon # Same region as your web service
+    plan: free # or starter based on your needs
