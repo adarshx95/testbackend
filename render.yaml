@@ -3,27 +3,39 @@ services:
     name: bankbounty-backend
     env: node
     region: oregon # Choose your preferred region
-    plan: free # or starter/standard based on your needs
+    plan: free # or upgrade to starter/standard if needed
     buildCommand: npm install && npm run build
     startCommand: npm run start:prod
     healthCheckPath: /api
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 3000
       - key: JWT_SECRET
-        generateValue: true # Render will generate a secure random value
+        value: your-super-secret-jwt-key-change-this-in-production
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: GOOGLE_CLIENT_ID
-        sync: false # You'll set this manually
+        value: your-google-client-id
       - key: GOOGLE_CLIENT_SECRET
-        sync: false # You'll set this manually
+        value: your-google-client-secret
       - key: FRONTEND_URL
         value: https://your-frontend-domain.com
+      - key: DB_HOST
+        value: db.xuomcxdchkuvcbwlmigv.supabase.co
+      - key: DB_PORT
+        value: 5432
+      - key: DB_USERNAME
+        value: postgres
+      - key: DB_PASSWORD
+        value: Kp-&zh9iRRfcqpL
+      - key: DB_NAME
+        value: postgres
 
 databases:
   - name: bankbounty-postgres
     databaseName: bankbounty
     user: bankbounty_user
     region: oregon # Same region as your web service
-    plan: free # or starter based on your needs
+    plan: free
